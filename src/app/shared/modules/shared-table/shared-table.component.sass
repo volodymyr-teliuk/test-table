@@ -1,0 +1,84 @@
+\:host
+  .columns-control--container
+    display: flex
+    .input-container
+      color: grey
+      font-size: 12px
+      display: flex
+      align-items: center
+      margin-right: 10px
+      &:last-of-type
+        margin-right: 0
+      span
+        margin-left: 5px
+
+  table
+    width: 100%
+    .cdk-row, .cdk-header-row
+      width: 100%
+      .cdk-cell, .cdk-header-cell
+        padding: 10px
+        font-size: 12px
+    .cdk-header-row
+      border-bottom: 1px grey solid
+      position: relative
+      .cdk-header-cell
+        color: grey
+      &:after
+        content: ''
+        width: 100%
+        height: 1px
+        background: grey
+        position: absolute
+        bottom: 0
+        left: 0
+    .cdk-row
+      &:hover
+        background: aliceblue
+      .cdk-cell
+        &:hover
+          cursor: pointer
+        .success
+          color: green
+        .failed
+          color: red
+        button
+          outline: none
+          background: cadetblue
+          color: white
+          border: none
+          padding: 5px 10px
+          border-radius: 5px
+          cursor: pointer
+
+
+@media(max-width: 650px)
+  \:host
+    table
+      .cdk-row, .cdk-header-row
+        .cdk-cell, .cdk-header-cell
+          overflow: hidden
+          text-overflow: ellipsis
+          max-width: 100px
+          padding: 10px 3px
+          &.cdk-column-action
+            max-width: 130px
+          &.cdk-column-version
+            max-width: 50px
+
+@media(max-width: 490px)
+  \:host
+    .columns-control--container
+      flex-direction: column
+      .input-container
+        margin-top: 10px
+        &:last-of-type
+          margin-bottom: 0
+
+    table
+      .cdk-row
+        .cdk-cell
+          overflow: hidden
+          text-overflow: ellipsis
+          max-width: 70px
+

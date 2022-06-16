@@ -1,0 +1,10 @@
+<div class="container">
+  <app-shared-table [columnsToDisplay]="dataService1.columnsToDisplay"
+                    [dataSource]="dataService1.data"
+                    (onAction)="updateStatus($event)"></app-shared-table>
+
+  <app-shared-table [columnsToDisplay]="dataService2.columnsToDisplay"
+                    [dataSource]="dataService2.data"
+                    (onAction)="updateStatus($event)"></app-shared-table>
+</div>
+

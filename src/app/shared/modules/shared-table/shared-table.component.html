@@ -1,0 +1,56 @@
+<div class="columns-control--container">
+  <label *ngFor="let column of columns" class="input-container">
+    <ng-container *ngIf="column.title">
+      <input type="checkbox" [name]="column.name" [checked]="column.active" (change)="hideColumn(column)">
+      <span>{{column.title}}</span>
+    </ng-container>
+  </label>
+</div>
+
+<table cdk-table [dataSource]="data">
+
+  <ng-container *ngFor="let column of columns">
+
+    <ng-container [cdkColumnDef]="column.name" *ngIf="column.active">
+      <th cdk-header-cell  *cdkHeaderCellDef>{{column.title}}</th>
+      <ng-container>
+        <td cdk-cell *cdkCellDef="let element; let index = index" (click)="replaceComponent(element, index, column)">
+          <div #cellContainer></div>
+
+          <ng-container *ngIf="!element[column.name]?.showDynamicComponent">
+
+            <ng-container *ngIf="element[column.name]?.data; else noData">
+
+
+              <ng-container *ngIf="column.name === 'action'; else content">
+                <button (click)="action(element, $event)">{{element[column.name].data || '--'}}</button>
+              </ng-container>
+
+              <ng-template #content>
+
+                <ng-container *ngIf="column.name.includes('Date') && element[column.name]?.data; else defaultContent">
+                  <!--Доцільніше використати пайп, але хочу показати дочірній компонент у комірці-->
+                  <app-date [dateSource]="element[column.name]?.data"></app-date>
+                </ng-container>
+
+                <ng-template #defaultContent>
+                  <span [ngClass]="element[column.name]?.extraClass">{{element[column.name]?.data || '--'}}</span>
+                </ng-template>
+
+              </ng-template>
+
+            </ng-container>
+
+          </ng-container>
+        </td>
+      </ng-container>
+    </ng-container>
+
+  </ng-container>
+
+  <tr cdk-header-row *cdkHeaderRowDef="columnsName"></tr>
+  <tr cdk-row *cdkRowDef="let element; columns: columnsName;"></tr>
+
+</table>
+
+<ng-template #noData>--</ng-template>
